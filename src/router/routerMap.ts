@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
+import Layout from "../layout/index.vue"
 /**
  * {
  *  path: string,          页面访问的路径
@@ -39,12 +40,19 @@ const routerMap:RouteRecordRaw[] = [
     {
         path: '/home',
         name: 'Home',
-        component: () => import('../website/home/index.vue'),
-        meta: { 
-          title: '首页',
-          auth:true,
-          icon:"",
-        },
+        component: Layout,
+        children: [
+          {
+            path: '/home',
+            name: 'Home',
+            component:() => import('../website/home/index.vue') ,
+            meta: { 
+              title: '首页',
+              auth:true,
+              icon:"",
+            },
+          },
+        ]
       },
       {
         path: '/journal',
