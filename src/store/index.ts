@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
+import {loginParams} from "./modules/loginParams"
+import {userInfo} from "./modules/userInfo"
 export default createStore({
-  state: {
-    name: 'zhagnsan'
+  modules:{
+    loginParams,
+    userInfo
   }
 })

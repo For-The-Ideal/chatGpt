@@ -7,6 +7,7 @@ import routes from "./routerMap";
  * createWebHashHistory   通过window.history.state来管理历史记录，
  * 而createMemoryHistory   是通过维护一个队列和一个位置来实现对路由记录的管理，这也保证了在SSR中vue-router能够正常进行
  */
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
