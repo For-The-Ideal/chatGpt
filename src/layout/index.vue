@@ -87,7 +87,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, toRefs, computed, ref, Ref } from "vue";
+import { reactive, toRefs, computed, ref, Ref,getCurrentInstance  } from "vue";
+import {useRouter,Router} from "vue-router"
 import {Reactive} from "../interfaces/layout/index"
 let sideDom: Ref = ref(null);
 const state:Reactive = reactive({
@@ -98,6 +99,14 @@ const state:Reactive = reactive({
     }
   ]
 });
+
+const {proxy,ctx} = getCurrentInstance() as any
+
+const router:Router = useRouter()
+
+console.log(proxy,'proxy')
+console.log(ctx,'ctx')
+console.log(router,'router')
 const collapsedSider = (): void => {
   sideDom.value.toggleCollapse();
 };
