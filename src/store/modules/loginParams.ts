@@ -9,11 +9,13 @@ export const loginParams = {
       }
     },
     mutations:{
-     setLoginParams: () => void{
+      setLoginParams: () => void{
 
      }
     },
     actions:{
-       
+        changeLoginParams(){
+
+      }
     }
 }
