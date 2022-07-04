@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse,AxiosRequestConfig } from "axios";
 import qs from 'qs'
+import loginParams from "../store/index"
 
 let responseCodeList:Array<Number> = [ //http 状态码
   200,
@@ -12,10 +13,10 @@ let responseCodeList:Array<Number> = [ //http 状态码
 const baseUrl:ImportMetaEnv = import.meta.env;
 
 axios.interceptors.request.use(
-  (config):AxiosRequestConfig<any> => {
-    const token:string | undefined = ""
+  (config:AxiosRequestConfig) => {
+   const token = ""
     if (token) {
-
+      (config as any).headers.Authorization = "x"
     }
     return config
   },
