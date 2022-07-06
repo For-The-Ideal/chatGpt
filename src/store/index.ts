@@ -1,9 +1,9 @@
-import { createStore } from 'vuex'
-import {loginParams} from "./modules/loginParams"
-import {userInfo} from "./modules/userInfo"
-export default createStore({
-  modules:{
-    loginParams,
-    userInfo
-  }
-})
+import {createPinia,Pinia,PiniaPluginContext} from "pinia"
+const piniaPlugin = (context:PiniaPluginContext) :void=>{
+    console.log(context,'context')
+}
+const store:Pinia = createPinia()
+store.use(piniaPlugin)
+export {
+    store
+}
