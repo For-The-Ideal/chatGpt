@@ -49,7 +49,7 @@ const state = reactive({
     passWord:"",
   },
 });
-const title = ref<string>('德莱文222')
+const title = ref<string>('德莱文')
 
 const {  params,list,imgPath } = toRefs(state);
 
