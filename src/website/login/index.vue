@@ -200,11 +200,13 @@
 <script setup lang="ts">
 import {Reactive} from "../../interfaces/login/index"
 import { getCurrentInstance, ComponentPublicInstance,customRef,Ref,ref,reactive,toRefs, onMounted, ToRef,HTMLDivElement } from 'vue';
-import { log } from "console";
+import { useRoute,RouteLocationNormalizedLoaded, useRouter,Router } from "vue-router";
 const instance = getCurrentInstance()
 const isLogin:Ref<boolean> = ref(true)
 const loginFormInline:Ref<HTMLDivElement> = ref(null)
 const registerFormInline:Ref<HTMLDivElement> = ref(null)
+const route:RouteLocationNormalizedLoaded = useRoute()
+const router:Router = useRouter()
 const state:Reactive = reactive({
      loginParams: {
         account:"",
@@ -269,14 +271,13 @@ const toSignUp = ():void=>{
   isLogin.value = false
 }
 const handleSubmit = (refs:HTMLDivElement):void=> {
-  console.log(refs,'name');
   refs.validate((valid:boolean) => {
-                  console.log(valid);
                     if (!valid) {
-                        // this.$Message.success('Success!');
-                    } else {
-                        // this.$Message.error('Fail!');
+                      return
                     }
+                    router.push({
+                      path:"/home"
+                    })
                 })
             }
 const {
