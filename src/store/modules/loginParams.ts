@@ -1,13 +1,14 @@
 import { defineStore,StoreDefinition } from "pinia"
 type LoginParams = {
     token:string
-    loginTime:number
+    loginTime?:number
 }
 export const loginParamsStore = defineStore('loginParams',{
   state:()=>{
     return {
         loginParams:{
-          token:""
+          token:"",
+          oginTime:""
         }
     }
   },

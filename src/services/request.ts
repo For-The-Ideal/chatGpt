@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosResponse,AxiosRequestConfig } from "axios";
 import qs from 'qs'
-import loginParams from "../store/index"
 
 let responseCodeList:Array<Number> = [ //http 状态码
   200,
@@ -11,12 +10,14 @@ let responseCodeList:Array<Number> = [ //http 状态码
 ]
 
 const baseUrl:ImportMetaEnv = import.meta.env;
-
 axios.interceptors.request.use(
   (config:AxiosRequestConfig) => {
-   const token = ""
-    if (token) {
-      (config as any).headers.Authorization = "x"
+    let token = window.localStorage.getItem("token") || ''
+    if (config.headers) {
+      config.headers['Authorization'] = "Basic c3dvcmQ6c3dvcmRfc2VjcmV0"
+    }
+    if(token && config.headers){
+      config.headers['cloudx-auth'] = token
     }
     return config
   },
@@ -32,9 +33,9 @@ axios.interceptors.response.use(
         throw new Error("服务器连接错误！");
     }
     if (res.status === 200 && responseCodeList.includes(res.data.code)) {
-
+      return Promise.resolve(res.data)
     }
-    return Promise.resolve(res.data)
+    return Promise.reject(res.data)
   },
   (error:AxiosError)=>{
     return Promise.reject(error)
