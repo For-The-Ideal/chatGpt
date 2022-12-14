@@ -32,8 +32,7 @@
            <Form class="sign-in-form" 
            ref="loginFormInline" 
            :model="loginParams" 
-           :rules="loginParamsVerification" 
-           @submit.native.prevent="handleSubmit">
+           :rules="loginParamsVerification">
              <h2 class="form-title">用户登录</h2>
                 <div class="form-input">
                   <i>
@@ -45,7 +44,7 @@
                     </svg>
                   </i>
                   <FormItem class="formInput" prop="account">
-                       <Input type="text" v-model="loginParams.account" placeholder="请输入账号"></Input>
+                       <Input @keyup.enter="handleSubmit" type="text" v-model="loginParams.account" placeholder="请输入账号"></Input>
                    </FormItem>
                 </div>
 
@@ -60,7 +59,7 @@
                 </svg>
               </i>
                   <FormItem label-position="right" class="formInput" prop="password">
-                       <Input label-position="right" type="password" v-model="loginParams.password" placeholder="请输入密码"></Input>
+                       <Input @keyup.enter="handleSubmit" label-position="right" type="password" v-model="loginParams.password" placeholder="请输入密码"></Input>
                    </FormItem>
                 </div>
             <FormItem>
@@ -107,8 +106,7 @@
            <Form class="sign-up-form" 
            ref="registerFormInline" 
            :model="registerParams" 
-           :rules="registerParamsVerification" 
-           @submit.native.prevent="handleSubmit">
+           :rules="registerParamsVerification">
              <h2 class="form-title">注册账号</h2>
                 <div class="form-input">
                   <i>
@@ -150,7 +148,7 @@
                 </svg>
               </i>
                   <FormItem class="formInput" prop="password">
-                       <Input type="password" v-model="registerParams.password" placeholder="请输入密码"></Input>
+                       <Input @keyup.enter="handleSubmit" type="password" v-model="registerParams.password" placeholder="请输入密码"></Input>
                    </FormItem>
                 </div>
             <FormItem>
@@ -268,23 +266,25 @@ const toSignInOrSignUp = (value:boolean):void=>{
 const handleSubmit = ():void=> {
   if(isLogin.value){
     loginFormInline.value.validate((valid:boolean) => {
-                    if (!valid) {
-                      return
-                    }
-                    proxy.$router.push({
-                      path:"/home"
-                    })
-                })
+        if (!valid) {
+
+          return
+        }
+        proxy.$router.push({
+          path:"/home"
+        })
+      })
     return
   }else{
     registerFormInline.value.validate((valid:boolean) => {
-                    if (!valid) {
-                      return
-                    }
-                    proxy.$router.push({
-                      path:"/"
-                    })
-                })
+        if (!valid) {
+
+            return
+        }
+        proxy.$router.push({
+            path:"/"
+        })
+      })
   }
 
             }

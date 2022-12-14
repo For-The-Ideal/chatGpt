@@ -34,17 +34,6 @@ const routerMap: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    name: "Index",
-    component: () => import("../pages/index/index.vue"),
-    meta: {
-      title: "",
-      hideMenu: false,
-      auth: false,
-      icon: "",
-    },
-  },
-  {
-    path: "/login",
     name: "Login",
     component: () => import("../pages/login/index.vue"),
     meta: {
