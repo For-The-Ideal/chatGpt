@@ -8,7 +8,7 @@
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid!
             </p>
-            <button class="panel-btn" id="sign-up-btn" @click="toSignUp">
+            <button class="panel-btn" id="sign-up-btn" @click="toSignInOrSignUp(false)">
              注册账号
             </button>
           </div>
@@ -20,7 +20,7 @@
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti.
             </p>
-            <button class="panel-btn" id="sign-in-btn" @click="toSignIn">
+            <button class="panel-btn" id="sign-in-btn" @click="toSignInOrSignUp(true)">
               登录
             </button>
           </div>
@@ -33,7 +33,7 @@
            ref="loginFormInline" 
            :model="loginParams" 
            :rules="loginParamsVerification" 
-           @submit.native.prevent="handleSubmit(loginFormInline)">
+           @submit.native.prevent="handleSubmit">
              <h2 class="form-title">用户登录</h2>
                 <div class="form-input">
                   <i>
@@ -64,7 +64,7 @@
                    </FormItem>
                 </div>
             <FormItem>
-                <Button class="form-btn" type="primary" @click="handleSubmit(loginFormInline)">登录</Button>
+                <Button class="form-btn" type="primary" @click="handleSubmit">登录</Button>
             </FormItem>
             <p class="social-text">社交账号登录</p>
             <div class="social-media">
@@ -108,7 +108,7 @@
            ref="registerFormInline" 
            :model="registerParams" 
            :rules="registerParamsVerification" 
-           @submit.native.prevent="handleSubmit(registerFormInline)">
+           @submit.native.prevent="handleSubmit">
              <h2 class="form-title">注册账号</h2>
                 <div class="form-input">
                   <i>
@@ -154,7 +154,7 @@
                    </FormItem>
                 </div>
             <FormItem>
-                <Button class="form-btn" type="primary" @click="handleSubmit(registerFormInline)">注册</Button>
+                <Button class="form-btn" type="primary" @click="handleSubmit">注册</Button>
             </FormItem>
             <p class="social-text">社交账号注册</p>
             <div class="social-media">
@@ -199,14 +199,12 @@
 </template>
 <script setup lang="ts">
 import {Reactive} from "../../interfaces/login/index"
-import { getCurrentInstance, ComponentPublicInstance,customRef,Ref,ref,reactive,toRefs, onMounted, ToRef,HTMLDivElement } from 'vue';
-import { useRoute,RouteLocationNormalizedLoaded, useRouter,Router } from "vue-router";
-const instance = getCurrentInstance()
+import {Ref,ref,reactive,toRefs, onMounted } from 'vue';
+import useCurrentInstance from "../../utils/useCurrentInstance"
 const isLogin:Ref<boolean> = ref(true)
-const loginFormInline:Ref<HTMLDivElement> = ref(null)
-const registerFormInline:Ref<HTMLDivElement> = ref(null)
-const route:RouteLocationNormalizedLoaded = useRoute()
-const router:Router = useRouter()
+const loginFormInline = ref()
+const registerFormInline = ref()
+const {proxy} = useCurrentInstance()
 const state:Reactive = reactive({
      loginParams: {
         account:"",
@@ -263,28 +261,38 @@ onMounted(()=>{
 
 })
 
-const toSignIn = ():void=>{
-  isLogin.value = true
+const toSignInOrSignUp = (value:boolean):void=>{
+  isLogin.value = value
 }
 
-const toSignUp = ():void=>{
-  isLogin.value = false
-}
-const handleSubmit = (refs:HTMLDivElement):void=> {
-  refs.validate((valid:boolean) => {
+const handleSubmit = ():void=> {
+  if(isLogin.value){
+    loginFormInline.value.validate((valid:boolean) => {
                     if (!valid) {
                       return
                     }
-                    router.push({
+                    proxy.$router.push({
                       path:"/home"
                     })
                 })
+    return
+  }else{
+    registerFormInline.value.validate((valid:boolean) => {
+                    if (!valid) {
+                      return
+                    }
+                    proxy.$router.push({
+                      path:"/"
+                    })
+                })
+  }
+
             }
 const {
   loginParams, 
   registerParams,
   loginParamsVerification,
-  registerParamsVerification,
+  registerParamsVerification, 
   } = toRefs(state);
 </script>
 

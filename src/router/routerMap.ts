@@ -24,7 +24,7 @@ const routerMap: RouteRecordRaw[] = [
   {
     path: "/error",
     name: "error",
-    component: () => import("../website/error/index.vue"),
+    component: () => import("../pages/error/index.vue"),
     meta: {
       title: "404",
       hideMenu: false,
@@ -35,7 +35,7 @@ const routerMap: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Index",
-    component: () => import("../website/index/index.vue"),
+    component: () => import("../pages/index/index.vue"),
     meta: {
       title: "",
       hideMenu: false,
@@ -46,7 +46,7 @@ const routerMap: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../website/login/index.vue"),
+    component: () => import("../pages/login/index.vue"),
     meta: {
       title: "登录",
       hideMenu: false,
@@ -62,7 +62,7 @@ const routerMap: RouteRecordRaw[] = [
       {
         path: "/home",
         name: "Home",
-        component: () => import("../website/home/index.vue"),
+        component: () => import("../pages/home/index.vue"),
         meta: {
           title: "首页",
           hideMenu: false,
@@ -75,7 +75,7 @@ const routerMap: RouteRecordRaw[] = [
   // {
   //   path: '/journal',
   //   name: 'journal',
-  //   component: () => import('../website/journal/index.vue'),
+  //   component: () => import('../pages/journal/index.vue'),
   //   meta: {
   //     title: '订单管理',
   //     auth:true,
