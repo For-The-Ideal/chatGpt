@@ -61,28 +61,51 @@ const routerMap: RouteRecordRaw[] = [
       },
     ],
   },
-  // {
-  //   path: '/journal',
-  //   name: 'journal',
-  //   component: () => import('../pages/journal/index.vue'),
-  //   meta: {
-  //     title: '订单管理',
-  //     auth:true,
-  //     icon:"",
-  //   },
-  //   children: [
-  //     {
-  //       path: '/journal/others',
-  //       name: 'others',
-  //       component: "",
-  //       meta: {
-  //         title: '其他菜单',
-  //         icon: 'xitongrizhi',
-  //         auth: ['others'],
-  //       },
-  //     },
-  //   ]
-  // }
+  {
+    path: '/articleList',
+    name: 'ArticleList',
+    component:Layout,
+    meta: {
+      title: '内容管理',
+      auth:true,
+      icon:"",
+    },
+    children: [
+      {
+        path: '/articleList',
+        name: 'ArticleList',
+        component: () => import("../pages/articleManagement/articleList/index.vue"),
+        meta: {
+          title: '文章管理',
+          icon: '',
+          auth: true,
+        },
+      },
+    ]
+  },
+
+  {
+    path: '/articleList',
+    name: 'ArticleList',
+    component:Layout,
+    meta: {
+      title: '内容管理',
+      auth:true,
+      icon:"",
+    },
+    children: [
+      {
+        path: '/articleList',
+        name: 'ArticleList',
+        component: () => import("../pages/articleManagement/articleList/index.vue"),
+        meta: {
+          title: '文章管理',
+          icon: '',
+          auth: true,
+        },
+      },
+    ]
+  } 
 ];
 
 export default routerMap;

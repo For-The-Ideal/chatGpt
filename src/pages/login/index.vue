@@ -12,7 +12,7 @@
              注册账号
             </button>
           </div>
-          <img src="@/assets/log.png" class="image" alt="" />
+          <img src="@/assets/login.png" class="image" alt="" />
         </div>
         <div class="panel right-panel">
           <div class="content">

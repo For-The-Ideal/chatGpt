@@ -4,7 +4,7 @@
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
           <div class="layout-logo">
-            <img src="https://img.alicdn.com/tfs/TB1R5fsgyDsXe8jSZR0XXXK6FXa-281-80.jpg" alt="">
+            <img src="../assets/logo.png" alt="">
           </div>
           <div class="layout-nav">
             <MenuItem name="1">
@@ -36,7 +36,7 @@
             </template>
                 <div v-if="item.isShowSon">
                   <div v-for="(items,key) in item.sonList" :key="key">
-                    <MenuItem :name="index.toString() + '-' + key.toString()">
+                    <MenuItem @click="clickSon(items)" :name="index.toString() + '-' + key.toString()">
                       <Icon :type="items.icon" />
                       {{items.title}}
                     </MenuItem>
@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { reactive, toRefs, computed, ref  } from "vue";
 import useCurrentInstance from "./../utils/useCurrentInstance"
-import {Reactive} from "../interfaces/layout/index"
+import {Reactive,SonItem} from "../interfaces/layout/index"
 let sideDom = ref();
 const {proxy} = useCurrentInstance()
 const state:Reactive = reactive({
@@ -82,7 +82,7 @@ const state:Reactive = reactive({
         {
           title:"首页",
           icon:"ios-paper",
-          router:"",
+          router:"/home",
         },
       ]
     },
@@ -94,7 +94,7 @@ const state:Reactive = reactive({
         {
           title:"文章管理",
           icon:"md-list-box",
-          router:"",
+          router:"/articleList",
         },
       ]
     },
@@ -110,57 +110,57 @@ const state:Reactive = reactive({
         },
       ]
     },
-    {
-      title:"HTML",
-      isShowSon:true,
-      icon:"logo-html5",
-      sonList:[
-        {
-          title:"盒模型",
-          icon:"",
-          router:"",
-        },
-        {
-          title:"弹性布局",
-          icon:"",
-          router:"",
-        },
-      ]
-    },
-    {
-      title:"JavaScript",
-      isShowSon:true,
-      icon:"logo-javascript",
-      sonList:[
-      {
-          title:"Es6",
-          icon:"",
-          router:"",
-        },
-        {
-          title:"Promise",
-          icon:"",
-          router:"",
-        },
-      ]
-    },
-    {
-      title:"CSS",
-      isShowSon:true,
-      icon:"logo-css3",
-      sonList:[
-      {
-          title:"过渡属性",
-          icon:"",
-          router:"",
-        },
-        {
-          title:"弹性布局",
-          icon:"",
-          router:"",
-        }
-      ]
-    },
+    // {
+    //   title:"HTML",
+    //   isShowSon:true,
+    //   icon:"logo-html5",
+    //   sonList:[
+    //     {
+    //       title:"盒模型",
+    //       icon:"",
+    //       router:"",
+    //     },
+    //     {
+    //       title:"弹性布局",
+    //       icon:"",
+    //       router:"",
+    //     },
+    //   ]
+    // },
+    // {
+    //   title:"JavaScript",
+    //   isShowSon:true,
+    //   icon:"logo-javascript",
+    //   sonList:[
+    //   {
+    //       title:"Es6",
+    //       icon:"",
+    //       router:"",
+    //     },
+    //     {
+    //       title:"Promise",
+    //       icon:"",
+    //       router:"",
+    //     },
+    //   ]
+    // },
+    // {
+    //   title:"CSS",
+    //   isShowSon:true,
+    //   icon:"logo-css3",
+    //   sonList:[
+    //   {
+    //       title:"过渡属性",
+    //       icon:"",
+    //       router:"",
+    //     },
+    //     {
+    //       title:"弹性布局",
+    //       icon:"",
+    //       router:"",
+    //     }
+    //   ]
+    // },
     // {
     //   title:"JavaScript",
     //   isShowSon:true,
@@ -276,6 +276,13 @@ const rotateIcon = computed(() => {
 const menuitemClasses = computed((): string[] => {
   return ["menu-item", state.isCollapsed ? "collapsed-menu" : ""];
 });
+
+const clickSon = (items:SonItem):void=>{
+  console.log(items);
+  proxy.$router.push({
+    path:items.router
+  })
+}
 
 const { isCollapsed,menuList,openNames,activeName } = toRefs(state);
 </script>
