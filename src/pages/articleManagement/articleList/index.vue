@@ -40,7 +40,7 @@ interface Reactive {
 const state: Reactive = reactive({
   columns: [
     {
-      title: "Name",
+      title: "小说类型",
       key: "name",
       tree: true,
     },

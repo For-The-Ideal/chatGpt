@@ -14,13 +14,13 @@ export const loginParamsStore = defineStore('loginParams',{
   },
 
   getters:{
-    getLoginParams():Promise<LoginParams>{
-      return this.loginParams
+    async getLoginParams():Promise<LoginParams>{
+      return await this.loginParams
     }
   },
 
   actions:{
-    async changeLoginParams(data:LoginParams):Promise<void>{
+    async changeLoginParams(data:LoginParams):void{
         this.loginParams = await data
     }
   },

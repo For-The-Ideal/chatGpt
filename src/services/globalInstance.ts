@@ -1,5 +1,5 @@
 import { App } from "vue";
-import { http } from "./request";
+import { http } from "./http";
 import { baseUrl } from "./baseUrl";
 import mitt,{Emitter,EventType} from "mitt"
 

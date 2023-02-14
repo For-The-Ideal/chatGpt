@@ -43,8 +43,8 @@
                         fill="#acacac"></path>
                     </svg>
                   </i>
-                  <FormItem class="formInput" prop="account">
-                       <Input @keyup.enter="handleSubmit" type="text" v-model="loginParams.account" placeholder="请输入账号"></Input>
+                  <FormItem  class="formInput" prop="account">
+                       <Input  @keyup.enter="handleSubmit" type="text" v-model="loginParams.account" placeholder="请输入账号"></Input>
                    </FormItem>
                 </div>
 
@@ -118,7 +118,7 @@
                   ></path>
                 </svg>
               </i>
-                  <FormItem class="formInput" prop="account">
+                  <FormItem  class="formInput" prop="account">
                        <Input type="text" v-model="registerParams.account" placeholder="请输入邮箱账号"></Input>
                    </FormItem>
                 </div>
@@ -147,7 +147,7 @@
                   ></path>
                 </svg>
               </i>
-                  <FormItem class="formInput" prop="password">
+                  <FormItem  class="formInput" prop="password">
                        <Input @keyup.enter="handleSubmit" type="password" v-model="registerParams.password" placeholder="请输入密码"></Input>
                    </FormItem>
                 </div>
@@ -204,7 +204,7 @@ const loginFormInline = ref()
 const registerFormInline = ref()
 const {proxy} = useCurrentInstance()
 const state:Reactive = reactive({
-     loginParams: {
+      loginParams: {
         account:"",
         password:"",
         barCode:"",
@@ -212,9 +212,9 @@ const state:Reactive = reactive({
       loginParamsVerification: {
         account: [
             {
-            required: true, 
-            message: '请输入账号', 
-            trigger: 'blur'
+              required: true, 
+              message: '请输入账号', 
+              trigger: 'blur'
             }
         ],
         password: [
@@ -266,10 +266,7 @@ const toSignInOrSignUp = (value:boolean):void=>{
 const handleSubmit = ():void=> {
   if(isLogin.value){
     loginFormInline.value.validate((valid:boolean) => {
-        if (!valid) {
-
-          return
-        }
+        if (!valid) return
         proxy.$router.push({
           path:"/home"
         })
@@ -277,22 +274,18 @@ const handleSubmit = ():void=> {
     return
   }else{
     registerFormInline.value.validate((valid:boolean) => {
-        if (!valid) {
-
-            return
-        }
+        if (!valid) return
         proxy.$router.push({
             path:"/"
         })
       })
   }
-
-            }
+}
 const {
   loginParams, 
   registerParams,
   loginParamsVerification,
-  registerParamsVerification, 
+  registerParamsVerification,
   } = toRefs(state);
 </script>
 
