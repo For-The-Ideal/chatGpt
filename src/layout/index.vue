@@ -15,7 +15,7 @@
                   <div v-for="(items,key) in item.sonList" :key="key">
                     <MenuItem @click="clickSon(items,index,key)" :name="index.toString() + '-' + key.toString()">
                       <Icon :type="items.icon" />
-                      {{items.title}}
+                      {{items.title}} --- {{ index.toString() + '-' + key.toString() }}
                     </MenuItem>
                   </div>
                 </div>
@@ -74,7 +74,6 @@ const newTagListStore = tagListStore()
 const newMenuParamsStore = menuParamsStore()
 const state:Reactive = reactive({
   isCollapsed: false,
-  
   tagList:[],
   menuList:[
   {
@@ -89,6 +88,8 @@ const state:Reactive = reactive({
           icon:"ios-paper",
           sonId:1,
           router:"/home",
+          openNames:"0",
+          activeName:"0",
         },
       ]
     },
@@ -104,6 +105,8 @@ const state:Reactive = reactive({
           icon:"md-list-box",
           sonId:2,
           router:"/articleList",
+          openNames:"1",
+          activeName:"0",
         },
       ]
     },
@@ -119,6 +122,8 @@ const state:Reactive = reactive({
           icon:"md-list-box",
           sonId:3,
           router:"/videoList",
+          openNames:"2",
+          activeName:"0",
         },
       ]
     },
@@ -178,7 +183,9 @@ const rotateIcon = computed(() => {
 });
 
 const getMenuParams = computed(():MenuParams => {
-  return newMenuParamsStore.getMenuParams
+  console.log(newMenuParamsStore.getMenuParams,'newMenuParamsStore.getMenuParams');
+  console.log(proxy,'xx');
+  return proxy.$RegexUtils.isNullObject(newMenuParamsStore.getMenuParams) ? {openNames:"0",activeName:"0"} : newMenuParamsStore.getMenuParams
 })
 const logoIcon = computed(() => {
   return new URL(state.isCollapsed ? "../assets/hideLogo.png" : '../assets/openLogo.png',import.meta.url).href

@@ -7,8 +7,8 @@ export const menuParamsStore = defineStore('menuParams',{
   state:()=>{
     return {
         menuParams:{
-            openNames:'0',
-            activeName:'0',
+            openNames:'',
+            activeName:'',
         }
     }
   },
