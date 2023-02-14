@@ -14,8 +14,8 @@ export const menuParamsStore = defineStore('menuParams',{
   },
 
   getters:{
-    async getMenuParams():MenuParams{
-      return await this.menuParams
+     getMenuParams():MenuParams{
+      return this.menuParams
     }
   },
 

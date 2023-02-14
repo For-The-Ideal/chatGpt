@@ -15,8 +15,7 @@
                   <div v-for="(items,key) in item.sonList" :key="key">
                     <MenuItem @click="clickSon(items,index,key)" :name="index.toString() + '-' + key.toString()">
                       <Icon :type="items.icon" />
-                      {{items.title}}{{ index.toString() + '-' + key.toString() }}
-                      {{ getMenuParams }}
+                      {{items.title}}
                     </MenuItem>
                   </div>
                 </div>
@@ -50,7 +49,7 @@
               <Breadcrumb :style="{ margin: '15px 0'}">
                 <Header :style="{ padding: 0 }" class="layout-header-bar">
                     <Icon @click="collapsedSider" :class="rotateIcon" :style="{ margin: '0 15px' }" type="md-menu" size="24"></Icon>
-                    <Tag v-for="(value,key) in getTagList" :key="key" type="dot" closable :color="value.router === getRoute.path ? 'primary' : ''">{{value.title}}</Tag>
+                    <Tag @click="clickTagItem(value)" v-for="(value,key) in getTagList" :key="key" type="dot" closable :color="value.router === getRoute.path ? 'primary' : ''">{{value.title}}</Tag>
                 </Header>
               </Breadcrumb>
               <Content :style="{ padding: '15px', minHeight: '280px', background: '#fff' }">
@@ -119,7 +118,7 @@ const state:Reactive = reactive({
           title:"视频管理",
           icon:"md-list-box",
           sonId:3,
-          router:"/articleList",
+          router:"/videoList",
         },
       ]
     },
@@ -207,13 +206,22 @@ const clickSon = async (items:SonItem,index:Number,key:Number):Promise<void>=>{
   })
   if(!flag){
     newTagListStore.changeTagList(items)
-
   }
   proxy.$router.push({
     path:items.router
   })
 }
 
+const clickTagItem = (value:SonItem)=>{
+  console.log(value,'vv');
+  if(proxy.$route.path === value.router){
+    return
+  }
+  proxy.$router.push({
+    path:value.router
+  })
+
+}
 const { isCollapsed,menuList} = toRefs(state);
 </script>
 
