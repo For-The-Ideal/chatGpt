@@ -1,7 +1,6 @@
 <template>
-
     <div>
-        
+        111
     </div>
 </template>
 
@@ -18,4 +17,6 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+@import "./index.less";
+</style>

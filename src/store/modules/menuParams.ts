@@ -6,10 +6,7 @@ type MenuParams = {
 export const menuParamsStore = defineStore('menuParams',{
   state:()=>{
     return {
-        menuParams:{
-            openNames:'',
-            activeName:'',
-        }
+        menuParams:window.localStorage.getItem("menuParams") ? JSON.parse(window.localStorage.getItem("menuParams")) : {openNames:'0',activeName:'0'}
     }
   },
 
@@ -22,6 +19,7 @@ export const menuParamsStore = defineStore('menuParams',{
   actions:{
     async changeMenuParams(data:MenuParams):void{
         this.menuParams = await data
+        window.localStorage.setItem("menuParams",JSON.stringify(data))
     }
   },
 })
