@@ -1,25 +1,26 @@
 import { defineStore,StoreDefinition } from "pinia"
 type LoginParams = {
     token:string
-    loginTime:number
+    loginTime?:number
 }
 export const loginParamsStore = defineStore('loginParams',{
   state:()=>{
     return {
         loginParams:{
-          token:""
+          token:"",
+          oginTime:""
         }
     }
   },
 
   getters:{
-    getLoginParams():Promise<LoginParams>{
-      return this.loginParams
+    async getLoginParams():Promise<LoginParams>{
+      return await this.loginParams
     }
   },
 
   actions:{
-    async changeLoginParams(data:LoginParams):Promise<void>{
+    async changeLoginParams(data:LoginParams):void{
         this.loginParams = await data
     }
   },

@@ -1,5 +1,5 @@
-import type { RouteRecordRaw } from 'vue-router';
-import Layout from "../layout/index.vue"
+import type { RouteRecordRaw } from "vue-router";
+import Layout from "../layout/index.vue";
 /**
  * {
  *  path: string,          页面访问的路径
@@ -20,69 +20,92 @@ import Layout from "../layout/index.vue"
     children:Array      嵌套子类配置
  * }
  */
-const routerMap:RouteRecordRaw[] = [
-    {
-        path: '/error',
-        name: 'error',
-        component: () => import('../website/error/index.vue'),
+const routerMap: RouteRecordRaw[] = [
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("../pages/error/index.vue"),
+    meta: {
+      title: "404",
+      hideMenu: false,
+      auth: false,
+      icon: "",
+    },
+  },
+  {
+    path: "/",
+    name: "Login",
+    component: () => import("../pages/login/index.vue"),
+    meta: {
+      title: "登录",
+      hideMenu: false,
+      auth: false,
+      icon: "",
+    },
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Layout,
+    children: [
+      {
+        path: "/home",
+        name: "Home",
+        component: () => import("../pages/home/index.vue"),
         meta: {
-            title: '404',
-            hideMenu:true,
-            auth:true,
-            icon:"",
+          title: "首页",
+          hideMenu: false,
+          auth: true,
+          icon: "",
         },
       },
-    {
-        path: '/',
-        name: 'Login',
-        component: () => import('../website/login/index.vue'),
+    ],
+  },
+  {
+    path: '/articleList',
+    name: 'ArticleList',
+    component:Layout,
+    meta: {
+      title: '内容管理',
+      auth:true,
+      icon:"",
+    },
+    children: [
+      {
+        path: '/articleList',
+        name: 'ArticleList',
+        component: () => import("../pages/articleManagement/articleList/index.vue"),
         meta: {
-            title: '登录',
-            hideMenu:true,
-            auth:false,
-            icon:"",
+          title: '文章管理',
+          icon: '',
+          auth: true,
         },
       },
-    {
-        path: '/home',
-        name: 'Home',
-        component: Layout,
-        children: [
-          {
-            path: '/home',
-            name: 'Home',
-            component:() => import('../website/home/index.vue') ,
-            meta: { 
-              title: '首页',
-              hideMenu:false,
-              auth:true,
-              icon:"",
-            },
-          },
-        ]
-      },
-      // {
-      //   path: '/journal',
-      //   name: 'journal',
-      //   component: () => import('../website/journal/index.vue'),
-      //   meta: { 
-      //     title: '订单管理',
-      //     auth:true,
-      //     icon:"",
-      //   },
-      //   children: [
-      //     {
-      //       path: '/journal/others',
-      //       name: 'others',
-      //       component: "",
-      //       meta: {
-      //         title: '其他菜单',
-      //         icon: 'xitongrizhi',
-      //         auth: ['others'],
-      //       },
-      //     },
-      //   ]
-      // }
-]
+    ]
+  },
 
-export default routerMap
+  {
+    path: '/articleList',
+    name: 'ArticleList',
+    component:Layout,
+    meta: {
+      title: '内容管理',
+      auth:true,
+      icon:"",
+    },
+    children: [
+      {
+        path: '/articleList',
+        name: 'ArticleList',
+        component: () => import("../pages/articleManagement/articleList/index.vue"),
+        meta: {
+          title: '文章管理',
+          icon: '',
+          auth: true,
+        },
+      },
+    ]
+  } 
+];
+
+export default routerMap;
