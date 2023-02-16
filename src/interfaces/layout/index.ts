@@ -1,3 +1,10 @@
+
+
+export interface Reactive {
+  isCollapsed: Boolean;
+  visible:Boolean;
+}
+
 export interface SonItem {
   title: string;
   icon: string;
@@ -6,20 +13,6 @@ export interface SonItem {
   fatherId:Number;
   openNames:string
   activeName:string
-}
-
-export interface Reactive {
-  isCollapsed: Boolean;
-  tagList:Array<SonItem>;
-  visible:Boolean;
-  menuList: Array<{
-    title: string;
-    isShowSon: Boolean;
-    isHideSon:Boolean;
-    icon: string;
-    fatherId:Number;
-    sonList: Array<SonItem>;
-  }>;
 }
 
 export interface MenuParams {

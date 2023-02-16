@@ -7,7 +7,7 @@
         </div>
         <Menu ref="menuDom" :active-name="getMenuParams.openNames + '-' + getMenuParams.activeName"
           :open-names="[getMenuParams.openNames]" width="auto" theme="light" :class="menuitemClasses">
-          <Submenu :name="index.toString()" v-for="(item, index) in menuList" :key="index">
+          <Submenu :name="index.toString()" v-for="(item, index) in getMenuList" :key="index">
             <template #title>
               <Icon :type="item.icon" />
               <span>{{ item.title }}</span>
@@ -75,12 +75,13 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, toRefs, computed, ref, watch, nextTick } from "vue";
+import { reactive, toRefs, computed, ref, watch, nextTick,onMounted } from "vue";
 import useCurrentInstance from "./../utils/useCurrentInstance"
-import { Reactive, SonItem, MenuParams } from "../interfaces/layout/index"
+import { Reactive, SonItem, MenuParams} from "../interfaces/layout/index"
 import { tagListStore } from "../store/modules/tagList"
 import { menuParamsStore } from "../store/modules/menuParams"
 import { initConfig } from "../initConfig"
+
 let sideDom = ref();
 let menuDom = ref()
 const { proxy } = useCurrentInstance()
@@ -89,64 +90,11 @@ const newMenuParamsStore = menuParamsStore()
 const state: Reactive = reactive({
   isCollapsed: false,
   visible: false,
-  tagList: [],
-  menuList: [
-    {
-      title: "工作台",
-      isShowSon: true,
-      icon: "md-desktop",
-      fatherId: 1,
-      isHideSon: false,
-      sonList: [
-        {
-          title: "首页",
-          icon: "ios-paper",
-          fatherId: 1,
-          sonId: 0,
-          router: "/home",
-          openNames: "0",
-          activeName: "0",
-        },
-      ]
-    },
-    {
-      title: "硬件资产管理",
-      isShowSon: true,
-      icon: "ios-keypad",
-      fatherId: 2,
-      isHideSon: false,
-      sonList: [
-        {
-          title: "存储节点",
-          icon: "md-list-box",
-          fatherId: 2,
-          sonId: 0,
-          router: "/articleList",
-          openNames: "1",
-          activeName: "0",
-        },
-        {
-          title: "管理节点",
-          icon: "md-list-box",
-          fatherId: 2,
-          sonId: 1,
-          router: "/articleList-1",
-          openNames: "1",
-          activeName: "1",
-        },
-        {
-          title: "计算节点",
-          icon: "md-list-box",
-          fatherId: 2,
-          sonId: 2,
-          router: "/articleList-2",
-          openNames: "1",
-          activeName: "2",
-        },
-      ]
-    },
-  ]
 });
+
+onMounted(()=>{
+  // getMenuList()
+})
 
 const collapsedSider = (): void => {
   sideDom.value.toggleCollapse();
@@ -157,13 +105,17 @@ const getTagList = computed(() => {
 })
 
 const rotateIcon = computed(() => {
+  nextTick(() => {
+      menuDom.value.updateOpened()
+      menuDom.value.updateActiveName()
+    })
   return ["menu-icon", state.isCollapsed ? "rotate-icon" : ""];
 });
 
 const getMenuParams = computed((): MenuParams => {
-  console.log(newMenuParamsStore.getMenuParams,'newMenuParamsStore.getMenuParams');
   return newMenuParamsStore.getMenuParams
 })
+
 const logoIcon = computed(() => {
   return new URL(state.isCollapsed ? "../assets/hideLogo.png" : '../assets/openLogo.png', import.meta.url).href
 });
@@ -173,12 +125,16 @@ const getRoute = computed(() => {
 })
 
 const menuitemClasses = computed((): string[] => {
-  state.menuList = state.menuList.map((v) => {
+  return ["menu-item", state.isCollapsed ? "collapsed-menu" : ""];
+});
+
+const getMenuList = computed(() =>{
+  let menuList:any = window.localStorage.getItem("menuList")
+  return JSON.parse(menuList).map((v:any)=>{
     v.isHideSon = state.isCollapsed
     return v
   })
-  return ["menu-item", state.isCollapsed ? "collapsed-menu" : ""];
-});
+})
 
 const clickSon = async (items: SonItem, index: Number, key: Number): Promise<void> => {
   if (proxy.$route.path === items.router) {
@@ -198,8 +154,6 @@ const clickSon = async (items: SonItem, index: Number, key: Number): Promise<voi
 }
 
 const clickTagItem = (value: SonItem) => {
-  console.log(value,'v');
-  
   if (proxy.$route.path === value.router) {
     return
   }
@@ -242,7 +196,7 @@ const cancelTag = () => {
   state.visible = false
 }
 
-const { isCollapsed, menuList, visible } = toRefs(state);
+const { isCollapsed, visible } = toRefs(state);
 </script>
 
 <style scoped lang="less">

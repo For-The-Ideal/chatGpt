@@ -198,7 +198,9 @@
 <script setup lang="ts">
 import {Reactive} from "../../interfaces/login/index"
 import {Ref,ref,reactive,toRefs, onMounted } from 'vue';
+import {newMenuList} from "./menuList"
 import useCurrentInstance from "../../utils/useCurrentInstance"
+import {SonItem} from "../../interfaces/layout/index"
 const isLogin:Ref<boolean> = ref(true)
 const loginFormInline = ref()
 const registerFormInline = ref()
@@ -267,9 +269,24 @@ const handleSubmit = ():void=> {
   if(isLogin.value){
     loginFormInline.value.validate((valid:boolean) => {
         if (!valid) return
+        new Promise<void>((resolve)=>{
+        let menuList = newMenuList.map((item,index:Number)=>{
+            item.isShowSon = true
+            item.isHideSon = false
+            item.sonList = item.sonList.length > 0 ? item.sonList.map((value:SonItem,key:Number)=>{
+              value.openNames = index.toString()
+              value.activeName = key.toString()
+              return value
+            }) : item.sonList
+            return item
+          })
+        window.localStorage.setItem("menuList",JSON.stringify(menuList))
+        resolve()
+        }).then(()=>{
         proxy.$router.push({
           path:"/home"
         })
+      })
       })
     return
   }else{

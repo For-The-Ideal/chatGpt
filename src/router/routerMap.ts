@@ -81,48 +81,6 @@ const routerMap: RouteRecordRaw[] = [
           auth: true,
         },
       },
-      {
-        path: '/articleList-1',
-        name: 'ArticleList-1',
-        component: () => import("../pages/articleManagement/articleList-1/index.vue"),
-        meta: {
-          title: '文章管理',
-          icon: '',
-          auth: true,
-        },
-      },
-      {
-        path: '/articleList-2',
-        name: 'ArticleList-2',
-        component: () => import("../pages/articleManagement/articleList-2/index.vue"),
-        meta: {
-          title: '文章管理',
-          icon: '',
-          auth: true,
-        },
-      },
-    ]
-  },
-  {
-    path: '/videoList',
-    name: 'VideoList',
-    component:Layout,
-    meta: {
-      title: '影片管理',
-      auth:true,
-      icon:"",
-    },
-    children: [
-      {
-        path: '/videoList',
-        name: 'VideoList',
-        component: () => import("../pages/videoList/index.vue"),
-        meta: {
-          title: '视频管理',
-          icon: '',
-          auth: true,
-        },
-      },
     ]
   },
 ];

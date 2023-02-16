@@ -39,18 +39,63 @@ interface Reactive {
 }
 const state: Reactive = reactive({
   columns: [
-    {
-      title: "小说类型",
+  {
+      title: "业务系统",
       key: "name",
       tree: true,
     },
     {
-      title: "Age",
+      title: "部门",
       key: "age",
       tree: false,
     },
     {
-      title: "Address",
+      title: "科室",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "业务负责人",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "负责人电话",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "云主机总数",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "开机数量",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "创建日期",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "关机数量",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "回收数量",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "回收日期",
+      key: "address",
+      tree: false,
+    },
+    {
+      title: "备注",
       key: "address",
       tree: false,
     },
