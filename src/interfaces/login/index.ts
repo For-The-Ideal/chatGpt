@@ -18,7 +18,7 @@ type RegisterParamsVerification = {
     trigger: string;
   }>;
 
-  email: Array<{
+  verificationCode: Array<{
     required: true;
     message: string;
     trigger: string;
@@ -41,6 +41,6 @@ export interface Reactive {
   registerParams: {
     account: string;
     password: string;
-    email: string;
+    verificationCode: string;
   };
 }

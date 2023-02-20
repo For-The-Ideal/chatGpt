@@ -122,20 +122,7 @@
                        <Input type="text" v-model="registerParams.account" placeholder="请输入邮箱账号"></Input>
                    </FormItem>
                 </div>
-                   <div class="form-input">
-                  <i>
-                <svg t="1668344734727" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3901" width="20" height="20">
-                  <path
-                    d="M1012.78493895 323.08624599V836.0373136a88.37381268 88.37381268 0 0 1-88.37381268 88.37381267H99.58887373a88.37381268 88.37381268 0 0 1-88.37381268-88.37381267V323.08624599l367.42885562 311.51768966a206.20556244 206.20556244 0 0 0 266.71216666 0L1012.78493895 323.08624599zM924.41112627 99.58887373a89.46375591 89.46375591 0 0 1 31.51999228 5.77375668 87.8435698 87.8435698 0 0 1 36.99917004 26.80672271 88.81568174 88.81568174 0 0 1 12.90257664 21.35700519c3.82953142 9.07304523 6.1861669 18.91199591 6.7753261 29.251732L1012.78493895 187.9626864v29.45793847L569.35460443 595.66054313a88.37381268 88.37381268 0 0 1-110.31997569 3.50549365l-4.38923317-3.53495251L11.21506105 217.42062487v-29.45793847a88.07923376 88.07923376 0 0 1 48.51722316-78.88835585A88.19706505 88.19706505 0 0 1 99.58887373 99.58887373h824.82225254z"
-                    p-id="3902"
-                    fill="#acacac"
-                  ></path>
-                </svg>
-              </i>
-                  <FormItem class="formInput" prop="email">
-                       <Input type="email" v-model="registerParams.email" placeholder="请输入邮箱验证码"></Input>
-                   </FormItem>
-                </div>
+
 
                 <div class="form-input">
                     <i>
@@ -151,6 +138,23 @@
                        <Input @keyup.enter="handleSubmit" type="password" v-model="registerParams.password" placeholder="请输入密码"></Input>
                    </FormItem>
                 </div>
+                
+                   <div class="form-input">
+                  <i>
+                <svg t="1668344734727" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3901" width="20" height="20">
+                  <path
+                    d="M1012.78493895 323.08624599V836.0373136a88.37381268 88.37381268 0 0 1-88.37381268 88.37381267H99.58887373a88.37381268 88.37381268 0 0 1-88.37381268-88.37381267V323.08624599l367.42885562 311.51768966a206.20556244 206.20556244 0 0 0 266.71216666 0L1012.78493895 323.08624599zM924.41112627 99.58887373a89.46375591 89.46375591 0 0 1 31.51999228 5.77375668 87.8435698 87.8435698 0 0 1 36.99917004 26.80672271 88.81568174 88.81568174 0 0 1 12.90257664 21.35700519c3.82953142 9.07304523 6.1861669 18.91199591 6.7753261 29.251732L1012.78493895 187.9626864v29.45793847L569.35460443 595.66054313a88.37381268 88.37381268 0 0 1-110.31997569 3.50549365l-4.38923317-3.53495251L11.21506105 217.42062487v-29.45793847a88.07923376 88.07923376 0 0 1 48.51722316-78.88835585A88.19706505 88.19706505 0 0 1 99.58887373 99.58887373h824.82225254z"
+                    p-id="3902"
+                    fill="#acacac"
+                  ></path>
+                </svg>
+              </i>
+                  <FormItem class="formInput" prop="verificationCode">
+                       <Input type="verificationCode" v-model="registerParams.verificationCode" placeholder="请输入邮箱验证码"></Input>
+                   </FormItem>
+                </div>
+
+          
             <FormItem>
                 <Button class="form-btn" type="primary" @click="handleSubmit">注册</Button>
             </FormItem>
@@ -196,6 +200,8 @@
   </div>
 </template>
 <script setup lang="ts">
+
+
 import {Reactive} from "../../interfaces/login/index"
 import {Ref,ref,reactive,toRefs, onMounted } from 'vue';
 import {newMenuList} from "./menuList"
@@ -235,10 +241,10 @@ const state:Reactive = reactive({
             trigger: 'blur'
             }
         ],
-        email: [
+        verificationCode: [
             {
             required: true, 
-            message: '请输入账号', 
+            message: '请输入验证码', 
             trigger: 'blur'
             }
         ],
@@ -253,47 +259,69 @@ const state:Reactive = reactive({
       registerParams: {
         account:"",
         password:"",
-        email:"",
+        verificationCode:"",
       },
 });
 
 onMounted(()=>{
-
+ getVerificationCode()
 })
 
 const toSignInOrSignUp = (value:boolean):void=>{
   isLogin.value = value
 }
 
+const getVerificationCode = ():void=>{
+  let url = proxy.$baseUrl.verificationCode
+  proxy.$http.get(url).then((res: any):void=>{
+    console.log(res,'rr');
+    
+  })
+}
+
 const handleSubmit = ():void=> {
+  console.log(proxy);
+  let url:string = "";
   if(isLogin.value){
     loginFormInline.value.validate((valid:boolean) => {
         if (!valid) return
-        new Promise<void>((resolve)=>{
-        let menuList = newMenuList.map((item,index:Number)=>{
-            item.isShowSon = true
-            item.isHideSon = false
-            item.sonList = item.sonList.length > 0 ? item.sonList.map((value:SonItem,key:Number)=>{
-              value.openNames = index.toString()
-              value.activeName = key.toString()
-              return value
-            }) : item.sonList
-            return item
+        url = proxy.$baseUrl.login
+        proxy.$http.post(url,state.loginParams).then((res:any):void=>{
+          if(res.code !=200){
+            return
+          }
+          new Promise<void>((resolve)=>{
+          let menuList = newMenuList.map((item,index:Number)=>{
+              item.isShowSon = true
+              item.isHideSon = false
+              item.sonList = item.sonList.length > 0 ? item.sonList.map((value:SonItem,key:Number)=>{
+                value.openNames = index.toString()
+                value.activeName = key.toString()
+                return value
+              }) : item.sonList
+              return item
+            })
+          window.localStorage.setItem("menuList",JSON.stringify(menuList))
+          resolve()
+          }).then(()=>{
+          proxy.$router.push({
+            path:"/home"
           })
-        window.localStorage.setItem("menuList",JSON.stringify(menuList))
-        resolve()
-        }).then(()=>{
-        proxy.$router.push({
-          path:"/home"
         })
-      })
+        }).catch((error:Error)=>{
+
+        })
       })
     return
   }else{
     registerFormInline.value.validate((valid:boolean) => {
         if (!valid) return
-        proxy.$router.push({
-            path:"/"
+        url = proxy.$baseUrl.register
+        proxy.$http.post(url,state.registerParams).then((res:any)=>{
+          if(res.code !=200){
+            return
+          }
+          // isLogin.value = true
         })
       })
   }

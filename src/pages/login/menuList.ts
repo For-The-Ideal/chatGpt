@@ -1,10 +1,29 @@
-export let newMenuList:Array<T> = [
+export interface SonItem {
+  title: string;
+  icon: string;
+  router: string;
+  sonId:Number;
+  fatherId:Number;
+}
+
+export interface NewMenuList {
+  title: string;
+  icon: string;
+  fatherId:Number;
+  sonList:Array<SonItem>
+}
+
+export interface MenuParams {
+  openNames:string
+  activeName:string
+}
+
+
+export let newMenuList:Array<T>= [
     {
         title:"资源总揽",
-        isShowSon:true,
         icon:"md-desktop",
         fatherId:1,
-        isHideSon:false,
         sonList:[
           {
             title:"首页",
@@ -17,10 +36,8 @@ export let newMenuList:Array<T> = [
       },
       {
         title:"业务系统管理",
-        isShowSon:true,
         icon:"ios-keypad",
         fatherId:2,
-        isHideSon:false,
         sonList:[
           {
             title:"业务清单",
@@ -33,9 +50,7 @@ export let newMenuList:Array<T> = [
       },
        {
         title:"云主机管理",
-        isShowSon:true,
         icon:"md-phone-landscape",
-        isHideSon:false,
         fatherId:3,
         sonList:[
           {
@@ -77,65 +92,49 @@ export let newMenuList:Array<T> = [
       },
       {
         title:"硬件资产管理",
-        isShowSon:true,
         icon:"ios-create",
-        isHideSon:false,
         fatherId:4,
         sonList:[]
       },
       {
         title:"下架设备管理",
-        isShowSon:true,
         icon:"ios-create",
-        isHideSon:false,
         fatherId:5,
         sonList:[]
       },
       {
         title:"借出清单管理",
-        isShowSon:true,
         icon:"ios-create",
-        isHideSon:false,
         fatherId:6,
         sonList:[]
       },
       {
         title:"备件库管理",
-        isShowSon:true,
         icon:"ios-create",
-        isHideSon:false,
         fatherId:7,
         sonList:[]
       },
        {
         title:"用户管理",
-        isShowSon:true,
         icon:"ios-person",
-        isHideSon:false,
         fatherId:8,
         sonList:[]
       },
       {
         title:"系统管理",
-        isShowSon:true,
         icon:"ios-settings",
-        isHideSon:false,
         fatherId:9,
         sonList:[]
       },
        {
         title:"留言管理",
-        isShowSon:true,
         icon:"ios-chatboxes",
-        isHideSon:false,
         fatherId:10,
         sonList:[]
       },
       {
         title:"集采管理",
-        isShowSon:true,
         icon:"ios-megaphone",
-        isHideSon:false,
         fatherId:11,
         sonList:[]
       },

@@ -1,20 +1,16 @@
-import axios from "axios";
+import axios,{AxiosResponse} from "axios";
 import qs from "qs";
-
-let baseUrl: ImportMetaEnv = import.meta.env;
-let headers = {
-  fromHeader: {
-    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-  },
-  jsonHeader: {
-    "Content-Type": "application/json",
-  },
-};
 
 interface ResType<T> {
   code: number;
   data?: T;
   msg: string;
+}
+
+interface Header{
+  [key:string]:{
+    [key:string]:string
+  },
 }
 
 interface Http {
@@ -25,17 +21,36 @@ interface Http {
   thirdPartyRequest<T>(url: string, params?: unknown): Promise<ResType<T>>;
 }
 
+let baseUrl: ImportMetaEnv = import.meta.env.VITE_BASE_HOST;
+let headers:Header = {
+  fromHeader: {
+    "Content-Type": "",
+  },
+};
 export let http: Http = {
   /**
    * @param    {String} url  请求路径
    * @returns                Promise
    */
-  get(url) {
+  get(url:string) {
+    let path: string =baseUrl + "/api" + url;
+    return new Promise((resolve, resject) => {
+      axios.get(path).then((res) => {
+          resolve(res.data);
+        }).catch((err) => {
+          resject(err);
+        });
+    });
+  },
+  /**
+   * @param {String}    url    请求路径
+   * @param {Object}    data   参数
+   * @returns                  Promise
+   */
+  post(url:string, data:unknown) {
     let path: string = baseUrl + "/api" + url;
     return new Promise((resolve, resject) => {
-      axios.get(path, {
-          headers: headers.fromHeader,
-        }).then((res) => {
+      axios.post(path,qs.stringify(data)).then((res) => {
           resolve(res.data);
         }).catch((err) => {
           resject(err);
@@ -47,13 +62,10 @@ export let http: Http = {
    * @param {Object}    data   参数
    * @returns                  Promise
    */
-  post(url, data) {
-    let path = baseUrl + "/api/" + url;
+  put(url:string, data:unknown) {
+    let path: string = baseUrl + "/api" + url;
     return new Promise((resolve, resject) => {
-      axios.post(path, {
-          data: qs.stringify(data),
-          headers: headers.fromHeader,
-        }).then((res) => {
+      axios.put(path, qs.stringify(data)).then((res) => {
           resolve(res.data);
         }).catch((err) => {
           resject(err);
@@ -65,13 +77,10 @@ export let http: Http = {
    * @param {Object}    data   参数
    * @returns                  Promise
    */
-  put(url, data) {
-    let path = baseUrl + "/api/" + url;
+  deletes(url:string, data:unknown) {
+    let path: string = baseUrl + "/api" + url;
     return new Promise((resolve, resject) => {
-      axios.put(path, {
-          data: qs.stringify(data),
-          headers: headers.fromHeader,
-        }).then((res) => {
+      axios.delete(path,{data:qs.stringify(data)}).then((res) => {
           resolve(res.data);
         }).catch((err) => {
           resject(err);
@@ -83,26 +92,8 @@ export let http: Http = {
    * @param {Object}    data   参数
    * @returns                  Promise
    */
-  deletes(url, data) {
-    let path = baseUrl + "/api/" + url;
-    return new Promise((resolve, resject) => {
-      axios.delete(path, {
-          data: qs.stringify(data),
-          headers: headers.fromHeader,
-        }).then((res) => {
-          resolve(res.data);
-        }).catch((err) => {
-          resject(err);
-        });
-    });
-  },
-  /**
-   * @param {String}    url    请求路径
-   * @param {Object}    data   参数
-   * @returns                  Promise
-   */
-  thirdPartyRequest(url, data) {
-    let path = baseUrl + url;
+  thirdPartyRequest(url:string, data:unknown) {
+    let path: string = baseUrl  + url;
     return new Promise((resolve, resject) => {
       axios.post(path, data).then((res) => {
           resolve(res.data);

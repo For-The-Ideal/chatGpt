@@ -7,7 +7,7 @@ const pathResolve = (dir: string): string => {
 const alias: Record<string, string> = {
   '@': pathResolve("src")
 }
-
+console.log(process,'ppp')
 export default defineConfig({
   plugins: [
     vue(),
@@ -21,12 +21,12 @@ export default defineConfig({
     open:true,
     proxy: {
       '/api': {
-          target: 'http://localhost',
+          target: 'http://localhost:9999',
           changeOrigin: true,
           ws:true,
           rewrite: (path) => path.replace(/^\/api/, '')
       },
-    }
+    },
   },
   css:{
     preprocessorOptions:{
