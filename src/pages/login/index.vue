@@ -33,7 +33,7 @@
            ref="loginFormInline" 
            :model="loginParams" 
            :rules="loginParamsVerification">
-             <h2 class="form-title">用户登录</h2>
+             <h2 class="form-title">账号登录</h2>
                 <div class="form-input">
                   <i>
                     <svg t="1668344487657" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3225" width="20" height="20">
@@ -267,9 +267,14 @@ const handleSubmit = ():void=> {
   if(isLogin.value){
     loginFormInline.value.validate((valid:boolean) => {
         if (!valid) return
+        new Promise<void>((resolve)=>{
+
+        resolve()
+        }).then(()=>{
         proxy.$router.push({
-          path:"/home"
+          path:"/chat"
         })
+      })
       })
     return
   }else{

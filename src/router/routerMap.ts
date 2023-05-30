@@ -44,68 +44,23 @@ const routerMap: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/home",
-    name: "Home",
+    path: "/chat",
+    name: "Chat",
     component: Layout,
     children: [
       {
-        path: "/home",
-        name: "Home",
-        component: () => import("../pages/home/index.vue"),
+        path: "/chat",
+        name: "Chat",
+        component: () => import("../pages/chat/index.vue"),
         meta: {
-          title: "首页",
+          title: "chatGpt",
           hideMenu: false,
           auth: true,
           icon: "",
         },
       },
     ],
-  },
-  {
-    path: '/articleList',
-    name: 'ArticleList',
-    component:Layout,
-    meta: {
-      title: '内容管理',
-      auth:true,
-      icon:"",
-    },
-    children: [
-      {
-        path: '/articleList',
-        name: 'ArticleList',
-        component: () => import("../pages/articleManagement/articleList/index.vue"),
-        meta: {
-          title: '文章管理',
-          icon: '',
-          auth: true,
-        },
-      },
-    ]
-  },
-
-  {
-    path: '/articleList',
-    name: 'ArticleList',
-    component:Layout,
-    meta: {
-      title: '内容管理',
-      auth:true,
-      icon:"",
-    },
-    children: [
-      {
-        path: '/articleList',
-        name: 'ArticleList',
-        component: () => import("../pages/articleManagement/articleList/index.vue"),
-        meta: {
-          title: '文章管理',
-          icon: '',
-          auth: true,
-        },
-      },
-    ]
-  } 
+  }
 ];
 
 export default routerMap;
