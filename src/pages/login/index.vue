@@ -205,8 +205,8 @@ const registerFormInline = ref()
 const {proxy} = useCurrentInstance()
 const state:Reactive = reactive({
       loginParams: {
-        account:"",
-        password:"",
+        account:"admin",
+        password:"123456",
         barCode:"",
       },
       loginParamsVerification: {
@@ -256,8 +256,16 @@ const state:Reactive = reactive({
 });
 
 onMounted(()=>{
-
+  getVerificationCode()
 })
+
+const getVerificationCode = ()=>{
+  let url = proxy.$baseUrl.authVerificationCode
+  proxy.$http.get(url).then((res)=>{
+    console.log(res,'rrr')
+  })
+
+}
 
 const toSignInOrSignUp = (value:boolean):void=>{
   isLogin.value = value
@@ -268,8 +276,12 @@ const handleSubmit = ():void=> {
     loginFormInline.value.validate((valid:boolean) => {
         if (!valid) return
         new Promise<void>((resolve)=>{
+        let url:string = proxy.$baseUrl.authLogin
+        proxy.$http.post(url,state.loginParams).then((res)=>{
+          console.log(res,'res')
+        })
 
-        resolve()
+        // resolve()
         }).then(()=>{
         proxy.$router.push({
           path:"/chat"
