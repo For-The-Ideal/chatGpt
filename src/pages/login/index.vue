@@ -193,12 +193,15 @@
         </div>
       </div>
     </div>
+
+    <SlideVerify />
   </div>
 </template>
 <script setup lang="ts">
 import {Reactive} from "../../interfaces/login/index"
 import {Ref,ref,reactive,toRefs, onMounted } from 'vue';
 import useCurrentInstance from "../../utils/useCurrentInstance"
+import SlideVerify from "../../components/SlideVerify/index.vue"
 const isLogin:Ref<boolean> = ref(true)
 const loginFormInline = ref()
 const registerFormInline = ref()
