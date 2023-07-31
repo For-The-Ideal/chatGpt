@@ -18,10 +18,9 @@ export interface MenuParams {
   activeName:string
 }
 
-
 export let newMenuList:Array<T>= [
     {
-        title:"资源总揽",
+        title:"工作台",
         icon:"md-desktop",
         fatherId:1,
         sonList:[
@@ -35,12 +34,12 @@ export let newMenuList:Array<T>= [
         ]
       },
       {
-        title:"业务系统管理",
+        title:"会员管理",
         icon:"ios-keypad",
         fatherId:2,
         sonList:[
           {
-            title:"业务清单",
+            title:"会员列表",
             icon:"md-list-box",
             fatherId:2,
             sonId:0,
@@ -49,93 +48,31 @@ export let newMenuList:Array<T>= [
         ]
       },
        {
-        title:"云主机管理",
+        title:"产品管理",
         icon:"md-phone-landscape",
         fatherId:3,
         sonList:[
           {
-            title:"网络部",
+            title:"产品列表",
             icon:"md-list-box",
             fatherId:3,
             sonId:0,
             router:"/videoList",
           },
-          {
-            title:"信技部",
-            icon:"md-list-box",
-            sonId:1,
-            fatherId:3,
-            router:"",
-          },
-          {
-            title:"采购部",
-            icon:"md-list-box",
-            sonId:2,
-            fatherId:3,
-            router:"",
-          },
-          {
-            title:"办公室",
-            icon:"md-list-box",
-            sonId:3,
-            fatherId:3,
-            router:"",
-          },
-          {
-            title:"其它部门",
-            icon:"md-list-box",
-            sonId:4,
-            router:"",
-            fatherId:3,
-          },
         ]
       },
       {
-        title:"硬件资产管理",
+        title:"客服管理",
         icon:"ios-create",
         fatherId:4,
-        sonList:[]
-      },
-      {
-        title:"下架设备管理",
-        icon:"ios-create",
-        fatherId:5,
-        sonList:[]
-      },
-      {
-        title:"借出清单管理",
-        icon:"ios-create",
-        fatherId:6,
-        sonList:[]
-      },
-      {
-        title:"备件库管理",
-        icon:"ios-create",
-        fatherId:7,
-        sonList:[]
-      },
-       {
-        title:"用户管理",
-        icon:"ios-person",
-        fatherId:8,
-        sonList:[]
-      },
-      {
-        title:"系统管理",
-        icon:"ios-settings",
-        fatherId:9,
-        sonList:[]
-      },
-       {
-        title:"留言管理",
-        icon:"ios-chatboxes",
-        fatherId:10,
-        sonList:[]
-      },
-      {
-        title:"集采管理",
-        icon:"ios-megaphone",
-        fatherId:11,
-        sonList:[]
+        sonList:[
+          {
+            title:"客服列表",
+            icon:"md-list-box",
+            fatherId:4,
+            sonId:0,
+            router:"/videoList",
+          },
+        ]
       },
     ]

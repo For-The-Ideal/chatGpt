@@ -16,7 +16,7 @@
               <div v-for="(items, key) in item.sonList" :key="key">
                 <MenuItem @click="clickSon(items, index, key)" :name="index.toString() + '-' + key.toString()">
                 <Icon :type="items.icon" />
-                {{ items.title }} --- {{ index.toString() + '-' + key.toString() }}
+                {{ items.title}}
                 </MenuItem>
               </div>
             </div>
@@ -26,7 +26,7 @@
       <Layout>
         <Header>
           <Menu mode="horizontal" theme="dark" active-name="1">
-            <div class="layout-nav">
+            <!-- <div class="layout-nav">
               <MenuItem name="1">
               <Icon type="ios-navigate"></Icon>
               Item 1
@@ -43,7 +43,7 @@
               <Icon type="ios-paper"></Icon>
               Item 4
               </MenuItem>
-            </div>
+            </div> -->
           </Menu>
         </Header>
         <Layout :style="{ padding: '0 15px 15px' }">

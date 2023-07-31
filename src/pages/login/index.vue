@@ -286,10 +286,10 @@ const handleSubmit = ():void=> {
     loginFormInline.value.validate((valid:boolean) => {
         if (!valid) return
         url = proxy.$baseUrl.login
-        proxy.$http.post(url,state.loginParams).then((res:any):void=>{
-          if(res.code !=200){
-            return
-          }
+        // proxy.$http.post(url,state.loginParams).then((res:any):void=>{
+        //   if(res.code !=200){
+        //     return
+        //   }
           new Promise<void>((resolve)=>{
           let menuList = newMenuList.map((item,index:Number)=>{
               item.isShowSon = true
@@ -308,9 +308,9 @@ const handleSubmit = ():void=> {
             path:"/home"
           })
         })
-        }).catch((error:Error)=>{
+        // }).catch((error:Error)=>{
 
-        })
+        // })
       })
     return
   }else{
